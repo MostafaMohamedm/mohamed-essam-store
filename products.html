@@ -29,9 +29,36 @@
 </section>
 
 <footer>
-    <p>© 2026 Mohamed Essam</p>
+    <p>© 2026 Mohamed Essam - جميع الحقوق محفوظة</p>
 </footer>
 
 <script src="script.js"></script>
+<script>
+    // تعيين العنوان والمنتجات حسب الفئة من URL
+    const params = new URLSearchParams(window.location.search);
+    const category = params.get('category'); 
+    const categoryTitle = document.getElementById('category-title'); 
+    const container = document.getElementById('products-container'); 
+
+    if(categoryTitle) {
+        categoryTitle.textContent = category ? category.charAt(0).toUpperCase() + category.slice(1) : "جميع المنتجات";
+    }
+
+    if(container) {
+        const filteredProducts = category ? products.filter(p => p.category === category) : products;
+        container.innerHTML = '';
+        filteredProducts.forEach(product => {
+            const div = document.createElement('div');
+            div.classList.add('product');
+            div.innerHTML = `
+                <img src="${product.img}" alt="${product.name}">
+                <h3>${product.name}</h3>
+                <p>${product.desc}</p>
+                <button onclick="addToCart(${product.id})">أضف إلى السلة</button>
+            `;
+            container.appendChild(div);
+        });
+    }
+</script>
 </body>
 </html>
