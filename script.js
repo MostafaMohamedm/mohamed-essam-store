@@ -12,7 +12,6 @@ function removeFromCart(index){
     cart.splice(index,1);
     localStorage.setItem("cart", JSON.stringify(cart));
     updateCartCount();
-    alert("تم حذف المنتج من السلة");
 }
 
 function updateCartCount(){
