@@ -41,3 +41,5 @@ footer{background:#111; color:white; padding:25px; text-align:center; font-size:
   .hero p{font-size:18px;}
   .hero .btn{font-size:16px; padding:12px 25px;}
 }
+
+body { background: red !important; }
