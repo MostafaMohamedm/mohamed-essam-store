@@ -91,7 +91,7 @@ if(checkoutBtn){
         });
 
         // رقم WhatsApp
-        const phone = "+201062835140";
+        const phone = "+2001062835140";
         const waURL = `https://api.whatsapp.com/send?phone=${phone}&text=${invoice}`;
         window.open(waURL,"_blank");
 
