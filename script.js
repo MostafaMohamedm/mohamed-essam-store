@@ -1,73 +1,103 @@
+// ==============================
 // بيانات المنتجات
+// ==============================
 const products = [
-    {id: 1, name: "قميص أبيض", category: "shirts", img: "images/shirt1.jpg", desc: "قميص رسمي للرجال، خامة ممتازة."},
-    {id: 2, name: "قميص كحلي", category: "shirts", img: "images/shirt2.jpg", desc: "قميص كاجوال مناسب للعمل والخروجات."},
-    {id: 3, name: "بنطال أسود", category: "pants", img: "images/pants1.jpg", desc: "بنطال كلاسيكي، خامة مريحة."},
-    {id: 4, name: "بنطال جينز", category: "pants", img: "images/pants2.jpg", desc: "جينز عصري يناسب كل الأوقات."},
-    {id: 5, name: "جاكيت أسود", category: "jackets", img: "images/jacket1.jpg", desc: "جاكيت أنيق للخروجات الرسمية والكاجوال."},
-    {id: 6, name: "حذاء أسود", category: "shoes", img: "images/shoes1.jpg", desc: "حذاء رسمي مريح ومتين."},
+    {id: 1, name: "قميص كلاسيكي", desc: "قميص رجالي أنيق", img: "images/shirt1.jpg", category: "shirts"},
+    {id: 2, name: "قميص كاجوال", desc: "قميص مريح يومي", img: "images/shirt2.jpg", category: "shirts"},
+    {id: 3, name: "بنطلون جينز", desc: "بنطلون جينز عصري", img: "images/pants1.jpg", category: "pants"},
+    {id: 4, name: "بنطلون رسمي", desc: "بنطلون رسمي للدوام", img: "images/pants2.jpg", category: "pants"},
+    {id: 5, name: "جاكيت جلد", desc: "جاكيت جلد فخم", img: "images/jacket1.jpg", category: "jackets"},
+    {id: 6, name: "جاكيت شتوي", desc: "جاكيت شتوي دافئ", img: "images/jacket2.jpg", category: "jackets"},
+    {id: 7, name: "حذاء رياضي", desc: "حذاء مريح للرياضة", img: "images/shoes1.jpg", category: "shoes"},
+    {id: 8, name: "حذاء رسمي", desc: "حذاء رسمي أنيق", img: "images/shoes2.jpg", category: "shoes"}
 ];
 
-// LocalStorage للسلة
+// ==============================
+// إدارة السلة (LocalStorage)
+// ==============================
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 const cartCount = document.getElementById('cart-count');
-if(cartCount) cartCount.textContent = cart.length;
 
-// عرض المنتجات حسب الفئة
-const params = new URLSearchParams(window.location.search);
-const category = params.get('category');
-const categoryTitle = document.getElementById('category-title');
-const container = document.getElementById('products-container');
-
-if(categoryTitle) categoryTitle.textContent = category ? category.charAt(0).toUpperCase() + category.slice(1) : "جميع المنتجات";
-
-if(container){
-    const filteredProducts = category ? products.filter(p => p.category === category) : products;
-    filteredProducts.forEach(product => {
-        const div = document.createElement('div');
-        div.classList.add('product');
-        div.innerHTML = `
-            <img src="${product.img}" alt="${product.name}">
-            <h3>${product.name}</h3>
-            <p>${product.desc}</p>
-            <button onclick="addToCart(${product.id})">أضف إلى السلة</button>
-        `;
-        container.appendChild(div);
-    });
-}
-
-// إضافة للسلة
-function addToCart(id){
-    const item = products.find(p => p.id === id);
-    cart.push(item);
-    localStorage.setItem('cart', JSON.stringify(cart));
+function updateCartCount(){
     if(cartCount) cartCount.textContent = cart.length;
-    alert('تمت إضافة المنتج إلى السلة');
+}
+updateCartCount();
+
+function addToCart(id){
+    const product = products.find(p => p.id === id);
+    if(product){
+        cart.push(product);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartCount();
+        alert(`${product.name} تم إضافته إلى السلة`);
+    }
 }
 
+// ==============================
+// إزالة من السلة
+// ==============================
+function removeFromCart(index){
+    cart.splice(index,1);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    renderCart();
+}
+
+// ==============================
 // عرض السلة
-const cartContainer = document.getElementById('cart-items');
-const cartSummary = document.getElementById('cart-summary');
-if(cartContainer){
-    cart.forEach(item => {
+// ==============================
+const cartItemsContainer = document.getElementById('cart-items');
+function renderCart(){
+    if(!cartItemsContainer) return;
+    cartItemsContainer.innerHTML = '';
+    if(cart.length === 0){
+        cartItemsContainer.innerHTML = '<p>السلة فارغة</p>';
+        updateCartCount();
+        return;
+    }
+
+    cart.forEach((item,index)=>{
         const div = document.createElement('div');
         div.classList.add('cart-item');
         div.innerHTML = `
             <img src="${item.img}" alt="${item.name}">
-            <h3>${item.name}</h3>
-            <button onclick="removeFromCart(${item.id})">إزالة</button>
+            <div>
+                <h3>${item.name}</h3>
+                <p>${item.desc}</p>
+            </div>
+            <button onclick="removeFromCart(${index})">حذف</button>
         `;
-        cartContainer.appendChild(div);
+        cartItemsContainer.appendChild(div);
     });
-}
 
-function removeFromCart(id){
-    cart = cart.filter(item => item.id !== id);
-    localStorage.setItem('cart', JSON.stringify(cart));
-    location.reload();
+    updateCartCount();
 }
+renderCart();
 
+// ==============================
+// Checkout - فاتورة WhatsApp
+// ==============================
 const checkoutBtn = document.getElementById('checkout-btn');
 if(checkoutBtn){
-    checkoutBtn.addEventListener('click', ()=> alert('تمت عملية الدفع بنجاح'));
+    checkoutBtn.addEventListener('click', ()=>{
+        if(cart.length === 0){
+            alert('السلة فارغة!');
+            return;
+        }
+
+        // إنشاء نص الفاتورة
+        let invoice = "فاتورة مشتريات Mohamed Essam:%0A";
+        cart.forEach((item,index)=>{
+            invoice += `${index+1}. ${item.name} - ${item.desc}%0A`;
+        });
+
+        // رقم WhatsApp
+        const phone = "01062835140";
+        const waURL = `https://api.whatsapp.com/send?phone=${phone}&text=${invoice}`;
+        window.open(waURL,"_blank");
+
+        // مسح السلة
+        cart = [];
+        localStorage.setItem('cart',JSON.stringify(cart));
+        renderCart();
+    });
 }
