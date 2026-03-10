@@ -1,16 +1,43 @@
-body{font-family:Arial; margin:0; padding:0; background:#f5f5f5; text-align:center;}
-header{background:#111; color:white; padding:20px; display:flex; justify-content:space-between; align-items:center;}
-header nav a{color:white; text-decoration:none; margin:0 10px;}
-#cart-info{margin-left:auto;}
-.hero{background:#333 url("images/shirt1.jpg") center/cover no-repeat; color:white; padding:100px 20px;}
-.btn{background:white; color:black; padding:10px 20px; border-radius:5px; text-decoration:none;}
-.categories{display:flex; justify-content:center; flex-wrap:wrap; gap:20px; padding:40px 20px;}
-.category{background:white; padding:10px; border-radius:10px; width:200px; box-shadow:0 0 10px rgba(0,0,0,0.1); cursor:pointer;}
-.category img{width:100%; transition:transform 0.3s;}
-.category:hover img{transform:scale(1.05);}
-.products{display:flex; justify-content:center; flex-wrap:wrap; gap:20px; padding:40px 20px;}
-.product{background:white; padding:15px; border-radius:10px; width:200px; box-shadow:0 0 10px rgba(0,0,0,0.1);}
-.product img{width:100%; transition:transform 0.3s;}
-.product:hover img{transform:scale(1.05);}
-button{cursor:pointer; padding:10px; margin-top:10px; background:#111; color:white; border:none; border-radius:5px;}
-footer{background:#111; color:white; padding:20px; margin-top:20px;}
+*{margin:0; padding:0; box-sizing:border-box; font-family: 'Arial', sans-serif;}
+body{background:#f8f8f8; color:#222;}
+header{background:#111; color:white; padding:20px 40px; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:1000;}
+header h1{font-size:24px; letter-spacing:1px;}
+header nav a{color:white; text-decoration:none; margin:0 15px; font-weight:500; transition:color 0.3s;}
+header nav a:hover{color:#ff9800;}
+#cart-info{margin-left:auto; font-weight:500;}
+
+.hero{background:#333 url("images/shirt1.jpg") center/cover no-repeat; color:white; padding:120px 20px; text-align:center; position:relative;}
+.hero h2{font-size:42px; margin-bottom:15px; letter-spacing:1px;}
+.hero p{font-size:20px; margin-bottom:25px;}
+.hero .btn{background:#ff9800; color:white; padding:15px 30px; font-size:18px; border-radius:30px; text-decoration:none; transition:background 0.3s;}
+.hero .btn:hover{background:#e68a00;}
+
+.categories{display:flex; justify-content:center; flex-wrap:wrap; gap:25px; padding:60px 20px;}
+.category{background:white; padding:15px; border-radius:15px; width:220px; box-shadow:0 8px 20px rgba(0,0,0,0.1); cursor:pointer; transition:transform 0.3s, box-shadow 0.3s;}
+.category img{width:100%; border-radius:10px; transition:transform 0.3s;}
+.category h3{margin-top:10px; font-size:18px; color:#333;}
+.category:hover{transform:translateY(-5px); box-shadow:0 12px 25px rgba(0,0,0,0.15);}
+.category:hover img{transform:scale(1.08);}
+
+.products{display:flex; justify-content:center; flex-wrap:wrap; gap:25px; padding:60px 20px;}
+.product{background:white; padding:20px; border-radius:15px; width:220px; box-shadow:0 8px 20px rgba(0,0,0,0.1); transition:transform 0.3s, box-shadow 0.3s;}
+.product img{width:100%; border-radius:10px; transition:transform 0.3s;}
+.product h3{margin:15px 0 5px; font-size:18px; color:#333;}
+.product p{color:#555; font-size:16px;}
+.product button{cursor:pointer; padding:12px 20px; margin-top:10px; background:#ff9800; color:white; border:none; border-radius:25px; font-size:16px; transition:background 0.3s, transform 0.2s;}
+.product button:hover{background:#e68a00; transform:scale(1.05);}
+.product:hover{transform:translateY(-5px); box-shadow:0 12px 25px rgba(0,0,0,0.15);}
+
+#contact{background:#222; color:white; padding:60px 20px; text-align:center;}
+#contact h2{font-size:32px; margin-bottom:15px;}
+#contact p{font-size:18px; margin:5px 0;}
+
+footer{background:#111; color:white; padding:25px; text-align:center; font-size:16px;}
+
+@media screen and (max-width:768px){
+  .categories, .products{flex-direction:column; align-items:center;}
+  header{flex-direction:column; gap:15px;}
+  .hero h2{font-size:32px;}
+  .hero p{font-size:18px;}
+  .hero .btn{font-size:16px; padding:12px 25px;}
+}
