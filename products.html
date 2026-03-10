@@ -1,5 +1,22 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>المنتجات | Mohamed Essam</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+<h1>المنتجات</h1>
+<nav>
+<a href="index.html">الرئيسية</a>
+<a href="products.html">المنتجات</a>
+<span id="cart-info">🛒 <span id="cart-count">0</span> منتج في السلة</span>
+</nav>
+</header>
+
 <section class="products">
-<!-- مثال لمنتج -->
 <div class="product">
 <img src="images/shirt1.jpg" alt="قميص رجالي">
 <h3>قميص رجالي</h3>
@@ -7,6 +24,10 @@
 <button onclick="addToCart('قميص رجالي',250)">أضف إلى السلة</button>
 <button onclick="removeFromCart(0)">حذف من السلة</button>
 </div>
-</section>
 
-<button onclick="checkout()">طلب الآن عبر WhatsApp</button>
+<div class="product">
+<img src="images/pants1.jpg" alt="بنطال رجالي">
+<h3>بنطال رجالي</h3>
+<p>300 جنيه</p>
+<button onclick="addToCart('بنطال رجالي',300)">أضف إلى السلة</button>
+<button onclick="removeFromCart(1)">ح
