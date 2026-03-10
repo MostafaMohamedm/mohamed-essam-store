@@ -3,52 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سلة المشتريات | Mohamed Essam</title>
+    <title>سلة التسوق - Mohamed Essam</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<!-- ===========================
-     Header
-=========================== -->
 <header>
     <h1>Mohamed Essam</h1>
     <nav>
         <a href="index.html">الرئيسية</a>
         <a href="products.html">المنتجات</a>
+        <a href="cart.html">السلة 🛒 <span id="cart-count">0</span></a>
         <a href="#contact">تواصل</a>
-        <span id="cart-info">🛒 <span id="cart-count">0</span> منتج في السلة</span>
     </nav>
 </header>
 
-<!-- ===========================
-     Cart Section
-=========================== -->
 <section class="cart">
-    <h2>سلة المشتريات</h2>
+    <h2>السلة الخاصة بك</h2>
     <div id="cart-items"></div>
-    <div id="cart-summary">
-        <p>إجمالي المنتجات: <span id="total-items">0</span></p>
-        <button id="checkout-btn">شراء عبر WhatsApp</button>
-    </div>
+    <div id="cart-summary"></div>
+    <button id="checkout-btn">إتمام الشراء</button>
 </section>
 
-<!-- ===========================
-     Contact Section
-=========================== -->
-<section id="contact">
-    <h2>تواصل معنا</h2>
-    <p>📱 WhatsApp: 01016254602</p>
-    <p>📍 Egypt</p>
-</section>
-
-<!-- ===========================
-     Footer
-=========================== -->
 <footer>
     <p>© 2026 Mohamed Essam</p>
 </footer>
 
-<script src="cart.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
