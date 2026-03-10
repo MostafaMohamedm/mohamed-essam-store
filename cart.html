@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سلة التسوق - Mohamed Essam</title>
+    <title>سلة Mohamed Essam</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -18,16 +18,87 @@
 </header>
 
 <section class="cart">
-    <h2>السلة الخاصة بك</h2>
+    <h2>سلتك</h2>
     <div id="cart-items"></div>
-    <div id="cart-summary"></div>
-    <button id="checkout-btn">إتمام الشراء</button>
+    <div id="cart-summary">
+        <button id="checkout-btn">إتمام الدفع</button>
+    </div>
+</section>
+
+<section id="contact">
+    <h2>تواصل معنا</h2>
+    <p>📱 WhatsApp: 01016254602</p>
+    <p>📍 Egypt</p>
 </section>
 
 <footer>
-    <p>© 2026 Mohamed Essam</p>
+    <p>© 2026 Mohamed Essam - جميع الحقوق محفوظة</p>
 </footer>
 
 <script src="script.js"></script>
-</body>
-</html>
+<script>
+    // تحميل السلة من localStorage
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartItemsContainer = document.getElementById('cart-items');
+    const cartCount = document.getElementById('cart-count');
+
+    function renderCart() {
+        cartItemsContainer.innerHTML = '';
+        if(cart.length === 0){
+            cartItemsContainer.innerHTML = '<p>السلة فارغة</p>';
+            if(cartCount) cartCount.textContent = 0;
+            return;
+        }
+
+        cart.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.classList.add('cart-item');
+            div.innerHTML = `
+                <img src="${item.img}" alt="${item.name}">
+                <div>
+                    <h3>${item.name}</h3>
+                    <p>${item.desc}</p>
+                </div>
+                <button onclick="removeFromCart(${index})">حذف</button>
+            `;
+            cartItemsContainer.appendChild(div);
+        });
+
+        if(cartCount) cartCount.textContent = cart.length;
+    }
+
+    function removeFromCart(index){
+        cart.splice(index,1);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        renderCart();
+    }
+
+    // Checkout مع فاتورة WhatsApp
+    const checkoutBtn = document.getElementById('checkout-btn');
+    if(checkoutBtn){
+        checkoutBtn.addEventListener('click', ()=> {
+            if(cart.length === 0){
+                alert('السلة فارغة!');
+                return;
+            }
+
+            // إنشاء نص الفاتورة
+            let invoice = "فاتورة مشتريات Mohamed Essam:%0A";
+            cart.forEach((item, index) => {
+                invoice += `${index+1}. ${item.name} - ${item.desc}%0A`;
+            });
+
+            // رقم WhatsApp
+            const phone = "01062835140";
+            const waURL = `https://api.whatsapp.com/send?phone=${phone}&text=${invoice}`;
+            window.open(waURL, "_blank");
+
+            // مسح السلة
+            cart = [];
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+        });
+    }
+
+    renderCart();
+</script>
