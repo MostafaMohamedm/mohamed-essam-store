@@ -1,37 +1,45 @@
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-updateCartCount();
+// ===========================
+// Cart / LocalStorage
+// ===========================
+let cart = [];
 
-function addToCart(name, price){
-    cart.push({name, price});
-    localStorage.setItem("cart", JSON.stringify(cart));
-    updateCartCount();
-    alert(name + " تم إضافته إلى السلة!");
-}
-
-function removeFromCart(index){
-    cart.splice(index,1);
-    localStorage.setItem("cart", JSON.stringify(cart));
+// تحميل السلة من LocalStorage عند فتح الصفحة
+if(localStorage.getItem('cart')){
+    cart = JSON.parse(localStorage.getItem('cart'));
     updateCartCount();
 }
 
+// تحديث عداد السلة
 function updateCartCount(){
-    document.getElementById('cart-count').innerText = cart.length;
+    const cartCount = document.getElementById('cart-count');
+    cartCount.textContent = cart.length;
 }
 
-function checkout(){
-    if(cart.length === 0){
-        alert("السلة فارغة!");
-        return;
-    }
+// إضافة منتج إلى السلة
+function addToCart(product){
+    // product يجب أن يكون كائن: {id, name, price, image}
+    cart.push(product);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+    alert(`${product.name} تمت إضافته إلى السلة!`);
+}
 
-    let message = "أريد طلب هذه المنتجات:\n";
-    let total = 0;
-    cart.forEach(item => {
-        message += "- " + item.name + " : " + item.price + " جنيه\n";
-        total += item.price;
+// ===========================
+// مثال على ربط أزرار المنتجات
+// ===========================
+document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.product button');
+    buttons.forEach((btn, index) => {
+        btn.addEventListener('click', () => {
+            // مثال على المنتج
+            const productCard = btn.parentElement;
+            const product = {
+                id: index + 1,
+                name: productCard.querySelector('h3').textContent,
+                price: 0, // يمكن إضافة سعر لكل منتج
+                image: productCard.querySelector('img').src
+            };
+            addToCart(product);
+        });
     });
-    message += "المجموع: " + total + " جنيه";
-
-    let whatsappUrl = "https://wa.me/201016254602?text=" + encodeURIComponent(message);
-    window.open(whatsappUrl, "_blank");
-}
+});
