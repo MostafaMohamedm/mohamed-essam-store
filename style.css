@@ -1,0 +1,98 @@
+body{
+font-family: Arial, sans-serif;
+margin:0;
+padding:0;
+background:#f5f5f5;
+text-align:center;
+}
+
+header{
+background:#111;
+color:white;
+padding:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+header nav a{
+color:white;
+text-decoration:none;
+margin:0 10px;
+}
+
+.hero{
+background:#333 url("images/shirt1.jpg") center/cover no-repeat;
+color:white;
+padding:100px 20px;
+}
+
+.btn{
+background:white;
+color:black;
+padding:10px 20px;
+text-decoration:none;
+border-radius:5px;
+}
+
+.categories{
+padding:40px 20px;
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+gap:20px;
+}
+
+.category{
+background:white;
+padding:10px;
+border-radius:10px;
+width:200px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+.category img{
+width:100%;
+}
+
+.products{
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+gap:20px;
+padding:40px 20px;
+}
+
+.product{
+background:white;
+padding:15px;
+border-radius:10px;
+width:200px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+.product img{
+width:100%;
+}
+
+button{
+cursor:pointer;
+padding:10px;
+margin-top:10px;
+background:#111;
+color:white;
+border:none;
+border-radius:5px;
+}
+
+#cart-info{
+margin:20px;
+font-weight:bold;
+}
+
+footer{
+background:#111;
+color:white;
+padding:20px;
+margin-top:20px;
+}
