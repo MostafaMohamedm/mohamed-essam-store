@@ -1,86 +1,12 @@
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-<meta charset="UTF-8">
-<title>المنتجات - Mohamed Essam</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-<header>
-<h1>المنتجات</h1>
-<nav>
-<a href="index.html">الرئيسية</a>
-<a href="products.html">المنتجات</a>
-<a href="#contact">تواصل</a>
-</nav>
-</header>
-
 <section class="products">
-
+<!-- مثال لمنتج -->
 <div class="product">
 <img src="images/shirt1.jpg" alt="قميص رجالي">
 <h3>قميص رجالي</h3>
 <p>250 جنيه</p>
-<button onclick="addToCart('قميص رجالي', 250)">أضف إلى السلة</button>
+<button onclick="addToCart('قميص رجالي',250)">أضف إلى السلة</button>
+<button onclick="removeFromCart(0)">حذف من السلة</button>
 </div>
-
-<div class="product">
-<img src="images/pants1.jpg" alt="بنطلون رجالي">
-<h3>بنطلون رجالي</h3>
-<p>350 جنيه</p>
-<button onclick="addToCart('بنطلون رجالي', 350)">أضف إلى السلة</button>
-</div>
-
-<div class="product">
-<img src="images/jacket1.jpg" alt="جاكيت رجالي">
-<h3>جاكيت رجالي</h3>
-<p>600 جنيه</p>
-<button onclick="addToCart('جاكيت رجالي', 600)">أضف إلى السلة</button>
-</div>
-
-<div class="product">
-<img src="images/shoes1.jpg" alt="حذاء رجالي">
-<h3>حذاء رجالي</h3>
-<p>450 جنيه</p>
-<button onclick="addToCart('حذاء رجالي', 450)">أضف إلى السلة</button>
-</div>
-
 </section>
 
-<div id="cart-info">
-🛒 المنتجات في السلة: <span id="cart-count">0</span>
-</div>
 <button onclick="checkout()">طلب الآن عبر WhatsApp</button>
-
-<script>
-let cart = [];
-
-function addToCart(name, price){
-    cart.push({name, price});
-    document.getElementById('cart-count').innerText = cart.length;
-    alert(name + " تم إضافته إلى السلة!");
-}
-
-function checkout(){
-    if(cart.length === 0){
-        alert("السلة فارغة!");
-        return;
-    }
-
-    let message = "أريد طلب هذه المنتجات:\n";
-    cart.forEach(item => {
-        message += "- " + item.name + " : " + item.price + " جنيه\n";
-    });
-
-    let whatsappUrl = "https://wa.me/201016254602?text=" + encodeURIComponent(message);
-    window.open(whatsappUrl, "_blank");
-}
-</script>
-
-<footer>
-<p>© 2026 Mohamed Essam</p>
-</footer>
-
-</body>
-</html>
