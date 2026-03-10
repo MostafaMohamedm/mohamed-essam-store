@@ -95,7 +95,7 @@ if(checkoutBtn){
 
         invoice += `%0Aالمجموع الكلي: ${total} جنيه`;
 
-        const phone = "01062835140"; // يمكنك تغييره للرقم الجديد
+        const phone = "+201062835140"; // يمكنك تغييره للرقم الجديد
         const waURL = `https://api.whatsapp.com/send?phone=${phone}&text=${invoice}`;
         window.open(waURL,"_blank");
 
